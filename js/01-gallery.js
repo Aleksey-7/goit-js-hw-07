@@ -28,24 +28,26 @@ function createGalleryCardsMarkup(_items) {
 }
 
 function onGalleryContainerClick(e) {
-  const isGalleryImageEl = e.target.classList.contains('gallery__image');
-
   e.preventDefault();
+  const isGalleryImageEl = e.target.classList.contains('gallery__image');
 
   if (!isGalleryImageEl) {
     return;
   }
 
-  const instance = basicLightbox.create(`
+  const modal = basicLightbox.create(`
       <img src="${e.target.dataset.source}" width="800" height="600">
   `);
-  instance.show();
-  window.addEventListener('keydown', onEscKeyPress);
+  modal.show();
+
+  if (modal.visible()) {
+    window.addEventListener('keydown', onEscKeyPress);
+  }
 
   function onEscKeyPress(e) {
     if (e.code === 'Escape') {
       console.log(e);
-      instance.close();
+      modal.close();
       window.removeEventListener('keydown', onEscKeyPress);
     }
   }

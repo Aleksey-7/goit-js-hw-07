@@ -22,7 +22,8 @@ function createGalleryCardsMarkup(_items) {
     .join('');
 }
 
-let gallery = new SimpleLightbox('.gallery a', {
+const gallery = new SimpleLightbox('.gallery a', {
+  captions: true,
   captionsData: 'alt',
   captionPosition: 'bottom',
   captionDelay: 250,
