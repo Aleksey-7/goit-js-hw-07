@@ -35,20 +35,21 @@ function onGalleryContainerClick(e) {
     return;
   }
 
-  const modal = basicLightbox.create(`
+  const modal = basicLightbox.create(
+    `
       <img src="${e.target.dataset.source}" width="800" height="600">
-  `);
+  `,
+    {
+      onShow: modal => document.addEventListener('keydown', onEscKeyPress),
+      onClose: modal => document.removeEventListener('keydown', onEscKeyPress),
+    }
+  );
   modal.show();
-
-  if (modal.visible()) {
-    window.addEventListener('keydown', onEscKeyPress);
-  }
 
   function onEscKeyPress(e) {
     if (e.code === 'Escape') {
       console.log(e);
       modal.close();
-      window.removeEventListener('keydown', onEscKeyPress);
     }
   }
 }
